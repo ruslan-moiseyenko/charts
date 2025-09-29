@@ -1,73 +1,101 @@
-# React + TypeScript + Vite
+# Spring Fiesta Event Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Простой одностраничный сайт для визуализации данных о мероприятиях из CSV-файла.
 
-Currently, two official plugins are available:
+## Описание
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Этот проект представляет собой SPA (Single Page Application) для анализа данных о ресторанах на мероприятии "Spring Fiesta". Приложение включает в себя:
 
-## React Compiler
+### Визуализации данных:
+1. **Bar Chart** - Количество проданных товаров по ресторанам
+2. **Pie Chart** - Распределение по категориям кухни
+3. **Map** - Локация мероприятия на карте (Лондон)
+4. **Metric Card** - Общая сумма выручки
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Данные:
+- Используются данные из `public/data.csv`
+- 5 ресторанов участвующих в мероприятии
+- Информация о выручке, проданных товарах, среднем чеке и др.
 
-## Expanding the ESLint configuration
+## Технологии
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **React 19** + **TypeScript**
+- **Vite** - сборщик проекта
+- **TailwindCSS 4.x** - стилизация
+- **shadcn/ui** - UI компоненты
+- **Recharts** - графики и диаграммы
+- **Leaflet + React-Leaflet** - интерактивная карта
+- **Papa Parse** - парсер CSV файлов
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Структура проекта
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+src/
+├── components/
+│   ├── ui/                 # shadcn/ui компоненты
+│   ├── charts/            # Компоненты графиков
+│   ├── Dashboard.tsx      # Главный дашборд
+│   └── DataCards.tsx      # Карточки с данными
+├── hooks/
+│   └── useCSVData.ts      # Хук для загрузки CSV
+├── types/
+│   └── index.ts           # TypeScript типы
+└── lib/
+    └── utils.ts           # Утилиты
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Запуск проекта
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Разработка
+```bash
+# Установка зависимостей
+pnpm install
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Запуск dev сервера
+pnpm run dev
 ```
+
+Откройте [http://localhost:5173](http://localhost:5173) в браузере.
+
+### Сборка статического сайта
+```bash
+# Сборка проекта
+pnpm run build
+
+# Просмотр собранного сайта
+pnpm run preview
+```
+
+Собранные файлы находятся в папке `dist/`. Можно открыть `dist/index.html` напрямую в браузере.
+
+## Особенности реализации
+
+1. **CSV обработка**: Данные загружаются асинхронно с помощью Papa Parse
+2. **Responsive дизайн**: Адаптивная верстка для разных устройств
+3. **Компонентный подход**: Каждый график - отдельный компонент
+4. **TypeScript**: Строгая типизация для всех данных
+5. **Статическая сборка**: Проект может работать без сервера
+
+## Данные
+
+CSV файл содержит информацию о 5 ресторанах:
+- Crepe Magic (французская, сладкая кухня)
+- Berry Bliss (британская, соленая кухня)
+- Pancake Point (блины, сладкая кухня)
+- Sweet Nest (итальянская, сладкая кухня)
+- Golden Crepe (французская, соленая кухня)
+
+Все рестораны находятся в одной локации в Лондоне (координаты: 51.5010, -0.1410).
+
+## Выполнение требований
+
+✅ **Данные из CSV**: Используется `public/data.csv` с корректным парсингом  
+✅ **Bar Chart**: Количество проданных товаров по ресторанам  
+✅ **Pie Chart**: Распределение по категориям кухни  
+✅ **Map**: Интерактивная карта с маркером локации  
+✅ **Метрика**: Общая сумма выручки (£5,100.00)  
+✅ **Карточки**: Детальная информация по каждому ресторану  
+✅ **SPA**: Одностраничное приложение  
+✅ **Статический сайт**: Работает без сервера  
+✅ **shadcn/ui**: Использованы компоненты библиотеки  
+✅ **Структурированность**: Четкое разделение компонентов
