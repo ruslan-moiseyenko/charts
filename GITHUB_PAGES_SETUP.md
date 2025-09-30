@@ -15,7 +15,15 @@
 6. В **Folder** выберите `/ (root)`
 7. Нажмите **Save**
 
-## Шаг 3: Активация GitHub Actions
+## Шаг 3: Настройка прав доступа
+
+1. Перейдите в **Settings** → **Actions** → **General**
+2. В разделе **Workflow permissions** выберите:
+   - **Read and write permissions**
+   - Поставьте галочку **Allow GitHub Actions to create and approve pull requests**
+3. Нажмите **Save**
+
+## Шаг 4: Активация GitHub Actions
 
 1. В репозитории перейдите на вкладку **Actions**
 2. Если Actions отключены, нажмите **I understand my workflows, go ahead and enable them**
@@ -41,6 +49,12 @@
 - Проверьте настройки Pages (должна быть выбрана ветка `gh-pages`)
 - Убедитесь, что workflow завершился успешно
 - Подождите несколько минут - деплой может занять время
+
+### Ошибка прав доступа (Permission denied)
+- Перейдите в **Settings** → **Actions** → **General**
+- В разделе **Workflow permissions** выберите **Read and write permissions**
+- Поставьте галочку **Allow GitHub Actions to create and approve pull requests**
+- Сохраните и перезапустите workflow
 
 ### Workflow не запускается
 - Проверьте, что Actions включены в настройках репозитория
