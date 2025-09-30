@@ -1,30 +1,32 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import type { EventData } from '@/types'
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import type { EventData } from "@/types";
 
 interface TotalRevenueProps {
-  data: EventData[]
+  data: EventData[];
 }
 
 export function TotalRevenue({ data }: TotalRevenueProps) {
-  const totalRevenue = data.reduce((sum, item) => sum + item.Revenue, 0)
+  const totalRevenue = data.reduce((sum, item) => sum + item.Revenue, 0);
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Total Revenue</CardTitle>
+    <Card className="h-full">
+      <CardHeader className="pb-2">
+        <CardTitle className="text-sm font-medium text-gray-600">
+          {data.length === 1 ? "Selected Revenue" : "Total Revenue"}
+        </CardTitle>
       </CardHeader>
-      <CardContent>
-        <div className="flex items-center justify-center">
-          <div className="text-center">
-            <div className="text-4xl font-bold text-primary">
-              £{totalRevenue.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-            </div>
-            <div className="text-sm text-muted-foreground mt-2">
-              Total revenue from all restaurants
-            </div>
-          </div>
+      <CardContent className="pt-0">
+        <div className="text-2xl font-bold text-blue-600">
+          £
+          {totalRevenue.toLocaleString("en-GB", {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0
+          })}
+        </div>
+        <div className="text-xs text-gray-500 mt-1">
+          {data.length === 1 ? data[0].Name : `${data.length} restaurants`}
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }
